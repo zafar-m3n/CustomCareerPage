@@ -54,17 +54,24 @@ const Sidebar = ({ sections, onSectionToggle }) => {
               handleEditLink={handleEditLink}
             />
           ) : section.name === "Hero Section" ? (
-            <HeroCustomization
-              section={section}
-              onTitleChange={(title) => console.log("Title updated:", title)}
-              onDescriptionChange={(description) =>
-                console.log("Description updated:", description)
-              }
-              onBackgroundColorChange={(color) =>
-                console.log("Background color updated:", color)
-              }
-              onImageChange={(image) => console.log("Image updated:", image)}
-            />
+            <>
+              <ToggleSwitch
+                label="Enable Section"
+                enabled={section.enabled}
+                onToggle={() => onSectionToggle(section.name)}
+              />
+              <HeroCustomization
+                section={section}
+                onTitleChange={(title) => console.log("Title updated:", title)}
+                onDescriptionChange={(description) =>
+                  console.log("Description updated:", description)
+                }
+                onBackgroundColorChange={(color) =>
+                  console.log("Background color updated:", color)
+                }
+                onImageChange={(image) => console.log("Image updated:", image)}
+              />
+            </>
           ) : (
             <ToggleSwitch
               label="Enable Section"
