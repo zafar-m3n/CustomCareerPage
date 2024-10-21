@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Accordion from "./Accordion";
 import ToggleSwitch from "./ToggleSwitch";
 import NavbarCustomization from "./NavbarCustomization";
+import HeroCustomization from "./HeroCustomization";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
@@ -44,14 +45,25 @@ const Sidebar = ({ sections, onSectionToggle }) => {
           isOpen={openAccordions.includes(section.name)}
           onToggle={() => handleAccordionToggle(section.name)}
         >
-          {section.name === "Navbar" || section.name === "Footer" ? (
+          {section.name === "Navbar" ? (
             <NavbarCustomization
               section={section}
               links={links}
-              handleOpenModal={() => setIsModalOpen(true)}
               handleAddLink={handleAddLink}
               handleDeleteLink={handleDeleteLink}
               handleEditLink={handleEditLink}
+            />
+          ) : section.name === "Hero Section" ? (
+            <HeroCustomization
+              section={section}
+              onTitleChange={(title) => console.log("Title updated:", title)}
+              onDescriptionChange={(description) =>
+                console.log("Description updated:", description)
+              }
+              onBackgroundColorChange={(color) =>
+                console.log("Background color updated:", color)
+              }
+              onImageChange={(image) => console.log("Image updated:", image)}
             />
           ) : (
             <ToggleSwitch
