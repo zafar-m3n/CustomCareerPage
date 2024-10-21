@@ -17,8 +17,8 @@ const Sidebar = ({ sections, onSectionToggle }) => {
   };
 
   return (
-    <div className="w-64 bg-white text-gray-800 h-screen p-6 fixed shadow-lg overflow-y-auto hide-scrollbar">
-      <h2 className="text-xl font-bold mb-6">Customization Panel</h2>
+    <div className="w-72 bg-white text-gray-800 h-screen fixed shadow-lg overflow-y-auto hide-scrollbar">
+      <h2 className="text-xl font-bold p-4 text-center">Customization Panel</h2>
 
       {sections.map((section) => (
         <Accordion
