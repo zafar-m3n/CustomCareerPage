@@ -1,35 +1,47 @@
-import React from "react";
-
-const SectionToggle = ({ title, enabled, onToggle }) => {
-  return (
-    <div className="flex items-center justify-between py-3">
-      <span className="text-sm font-medium">{title}</span>
-      <input
-        type="checkbox"
-        checked={enabled}
-        onChange={onToggle}
-        className="toggle-checkbox"
-      />
-    </div>
-  );
-};
+import React, { useState } from "react";
+import Accordion from "./Accordion";
+import Slider from "./Slider";
+import ToggleSwitch from "./ToggleSwitch";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
+  const [openAccordions, setOpenAccordions] = useState([]);
+
+  const handleAccordionToggle = (sectionName) => {
+    setOpenAccordions((prevOpenAccordions) => {
+      if (prevOpenAccordions.includes(sectionName)) {
+        return prevOpenAccordions.filter((name) => name !== sectionName);
+      } else {
+        return [...prevOpenAccordions, sectionName];
+      }
+    });
+  };
+
   return (
-    <div className="w-64 bg-gray-800 text-white h-screen p-6 fixed">
+    <div className="w-64 bg-white text-gray-800 h-screen p-6 fixed shadow-lg overflow-y-auto hide-scrollbar">
       <h2 className="text-xl font-bold mb-6">Customization Panel</h2>
 
-      <div>
-        <h3 className="font-semibold text-md mb-4">Sections</h3>
-        {sections.map((section) => (
-          <SectionToggle
-            key={section.name}
-            title={section.name}
+      {sections.map((section) => (
+        <Accordion
+          key={section.name}
+          title={section.name}
+          isOpen={openAccordions.includes(section.name)}
+          onToggle={() => handleAccordionToggle(section.name)}
+        >
+          <ToggleSwitch
+            label="Enable Section"
             enabled={section.enabled}
             onToggle={() => onSectionToggle(section.name)}
           />
-        ))}
-      </div>
+
+          <Slider
+            label="Size"
+            value={section.size || 16}
+            min={12}
+            max={64}
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </Accordion>
+      ))}
     </div>
   );
 };
