@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Accordion from "./Accordion";
 import ToggleSwitch from "./ToggleSwitch";
+import Modal from "./Modal";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [links, setLinks] = useState([]);
 
   const handleAccordionToggle = (sectionName) => {
     setOpenAccordions((prevOpenAccordions) => {
@@ -13,6 +16,28 @@ const Sidebar = ({ sections, onSectionToggle }) => {
         return [...prevOpenAccordions, sectionName];
       }
     });
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddLink = (newLink) => {
+    setLinks([...links, newLink]);
+  };
+
+  const handleDeleteLink = (index) => {
+    const updatedLinks = links.filter((_, i) => i !== index);
+    setLinks(updatedLinks);
+  };
+
+  const handleEditLink = (index) => {
+    const linkToEdit = links[index];
+    console.log("Edit link:", linkToEdit);
   };
 
   return (
@@ -50,12 +75,38 @@ const Sidebar = ({ sections, onSectionToggle }) => {
                     Links
                   </label>
                   <button
-                    onClick={section.onAddLink}
+                    onClick={handleOpenModal}
                     className="text-blue-500 font-light hover:text-blue-700 transition-all"
                   >
                     Add Link
                   </button>
                 </div>
+                {links.length > 0 && (
+                  <ul className="mt-2">
+                    {links.map((link, index) => (
+                      <li
+                        key={index}
+                        className="flex justify-between items-center p-2 bg-gray-100 rounded-md mb-2"
+                      >
+                        <span>{link.name}</span>
+                        <div className="flex space-x-3">
+                          <button
+                            onClick={() => handleEditLink(index)}
+                            className="text-gray-600 hover:text-gray-800"
+                          >
+                            <i className="fas fa-edit"></i>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteLink(index)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               <div className="mb-4">
@@ -109,6 +160,12 @@ const Sidebar = ({ sections, onSectionToggle }) => {
           )}
         </Accordion>
       ))}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onAddLink={handleAddLink}
+      />
     </div>
   );
 };
