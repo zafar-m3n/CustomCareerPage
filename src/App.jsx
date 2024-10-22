@@ -27,9 +27,6 @@ const App = () => {
     <div className="flex">
       <Sidebar sections={sections} onSectionToggle={handleSectionToggle} />
       <div className="ml-72 p-8 w-full bg-gray-50 min-h-screen">
-        {/* <h1 className="text-3xl font-bold mb-8 text-gray-800">
-          Career Page Preview
-        </h1> */}
         <Preview />
       </div>
     </div>
