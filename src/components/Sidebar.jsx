@@ -4,6 +4,7 @@ import ToggleSwitch from "./ToggleSwitch";
 import NavbarCustomization from "./NavbarCustomization";
 import HeroCustomization from "./HeroCustomization";
 import CompanyInfoCustomization from "./CompanyInfoCustomization";
+import PhotoGalleryCustomization from "./PhotoGalleryCustomization";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
@@ -84,6 +85,20 @@ const Sidebar = ({ sections, onSectionToggle }) => {
                 section={section}
                 onCompanyInfoChange={(info) =>
                   console.log("Company info updated:", info)
+                }
+              />
+            </>
+          ) : section.name === "Photo Gallery" ? (
+            <>
+              <ToggleSwitch
+                label="Enable Section"
+                enabled={section.enabled}
+                onToggle={() => onSectionToggle(section.name)}
+              />
+              <PhotoGalleryCustomization
+                section={section}
+                onPhotoGalleryChange={(data) =>
+                  console.log("Photo Gallery updated:", data)
                 }
               />
             </>
