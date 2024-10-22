@@ -7,6 +7,7 @@ import CompanyInfoCustomization from "./CompanyInfoCustomization";
 import PhotoGalleryCustomization from "./PhotoGalleryCustomization";
 import VideoGalleryCustomization from "./VideoGalleryCustomization";
 import JobSectionCustomization from "./JobSectionCustomization";
+import FooterCustomization from "./FooterCustomization";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
@@ -138,6 +139,14 @@ const Sidebar = ({ sections, onSectionToggle }) => {
                 }
               />
             </>
+          ) : section.name === "Footer" ? (
+            <FooterCustomization
+              section={section}
+              footerLinks={links}
+              handleAddFooterLink={handleAddLink}
+              handleDeleteFooterLink={handleDeleteLink}
+              handleEditFooterLink={handleEditLink}
+            />
           ) : (
             <ToggleSwitch
               label="Enable Section"
