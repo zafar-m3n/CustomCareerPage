@@ -3,6 +3,7 @@ import Accordion from "./Accordion";
 import ToggleSwitch from "./ToggleSwitch";
 import NavbarCustomization from "./NavbarCustomization";
 import HeroCustomization from "./HeroCustomization";
+import CompanyInfoCustomization from "./CompanyInfoCustomization";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
@@ -70,6 +71,20 @@ const Sidebar = ({ sections, onSectionToggle }) => {
                   console.log("Background color updated:", color)
                 }
                 onImageChange={(image) => console.log("Image updated:", image)}
+              />
+            </>
+          ) : section.name === "Company Information" ? (
+            <>
+              <ToggleSwitch
+                label="Enable Section"
+                enabled={section.enabled}
+                onToggle={() => onSectionToggle(section.name)}
+              />
+              <CompanyInfoCustomization
+                section={section}
+                onCompanyInfoChange={(info) =>
+                  console.log("Company info updated:", info)
+                }
               />
             </>
           ) : (

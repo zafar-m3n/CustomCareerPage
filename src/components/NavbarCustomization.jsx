@@ -3,13 +3,14 @@ import Modal from "./Modal";
 
 const NavbarCustomization = ({
   section,
-  handleOpenModal,
   links,
+  handleAddLink,
   handleDeleteLink,
   handleEditLink,
-  handleAddLink,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [linkName, setLinkName] = useState("");
+  const [linkURL, setLinkURL] = useState("");
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -17,6 +18,13 @@ const NavbarCustomization = ({
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    setLinkName("");
+    setLinkURL("");
+  };
+
+  const handleSaveLink = () => {
+    handleAddLink({ name: linkName, url: linkURL });
+    handleModalClose();
   };
 
   return (
@@ -32,7 +40,6 @@ const NavbarCustomization = ({
         />
       </div>
 
-      {/* Links Section */}
       <div className="mb-4">
         <div className="flex justify-between items-center">
           <label className="block mb-2 text-gray-700 font-medium">Links</label>
@@ -72,7 +79,6 @@ const NavbarCustomization = ({
         )}
       </div>
 
-      {/* Logo Upload Section */}
       <div className="mb-4">
         <label className="block mb-2 text-gray-700 font-medium">Logo</label>
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg flex flex-col items-center justify-center space-y-3">
@@ -108,13 +114,38 @@ const NavbarCustomization = ({
           )}
         </div>
       </div>
-
-      {/* Modal for Adding Links */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleModalClose}
-        onAddLink={handleAddLink}
-      />
+        onSave={handleSaveLink}
+        title="Add a Header Link"
+      >
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Link Name
+          </label>
+          <input
+            type="text"
+            value={linkName}
+            onChange={(e) => setLinkName(e.target.value)}
+            placeholder="Enter link name"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Link URL
+          </label>
+          <input
+            type="url"
+            value={linkURL}
+            onChange={(e) => setLinkURL(e.target.value)}
+            placeholder="Enter link URL"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

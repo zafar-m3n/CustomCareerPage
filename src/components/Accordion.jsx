@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const Accordion = ({ title, isOpen, onToggle, children }) => {
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) {
+      setHeight(contentRef.current.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isOpen]);
+
   return (
     <div className="">
       <div
@@ -11,9 +22,9 @@ const Accordion = ({ title, isOpen, onToggle, children }) => {
         <span className="text-gray-800">{isOpen ? "-" : "+"}</span>
       </div>
       <div
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? "max-h-screen" : "max-h-0"
-        }`}
+        ref={contentRef}
+        className="transition-all duration-300 ease-in-out overflow-hidden"
+        style={{ maxHeight: isOpen ? `${height}px` : "0" }}
       >
         <div className="mt-2 p-4 bg-white text-sm text-gray-700 rounded-md shadow-lg">
           {children}
