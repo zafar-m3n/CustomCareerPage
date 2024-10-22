@@ -29,7 +29,6 @@ const NavbarCustomization = ({
 
   return (
     <div>
-      {/* Background Color Picker */}
       <div className="flex items-center justify-between mb-4">
         <label className="text-gray-700 font-medium">Background Color</label>
         <input

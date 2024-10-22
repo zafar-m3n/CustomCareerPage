@@ -6,6 +6,7 @@ import HeroCustomization from "./HeroCustomization";
 import CompanyInfoCustomization from "./CompanyInfoCustomization";
 import PhotoGalleryCustomization from "./PhotoGalleryCustomization";
 import VideoGalleryCustomization from "./VideoGalleryCustomization";
+import JobSectionCustomization from "./JobSectionCustomization";
 
 const Sidebar = ({ sections, onSectionToggle }) => {
   const [openAccordions, setOpenAccordions] = useState([]);
@@ -114,6 +115,26 @@ const Sidebar = ({ sections, onSectionToggle }) => {
                 section={section}
                 onVideoGalleryChange={(data) =>
                   console.log("Video Gallery updated:", data)
+                }
+              />
+            </>
+          ) : section.name === "Jobs Section" ? (
+            <>
+              <ToggleSwitch
+                label="Enable Section"
+                enabled={section.enabled}
+                onToggle={() => onSectionToggle(section.name)}
+              />
+              <JobSectionCustomization
+                section={section}
+                onLayoutChange={(layout) =>
+                  console.log("Layout updated:", layout)
+                }
+                onBorderRadiusChange={(radius) =>
+                  console.log("Border radius updated:", radius)
+                }
+                onCardColorChange={(color) =>
+                  console.log("Card color updated:", color)
                 }
               />
             </>
